@@ -9,25 +9,29 @@ class SecondLargestElement {
         return arr[arr.length - 2];
     }
 
-    //2 pointers
+    //Second largest and smaller element
+    //Single pass
     //TC: O(n)  SC: O(1)
-    int print2largest(int arr[], int n) {
-        if(n == 1) return -1;
+    public static int[] getSecondOrderElements(int n, int []a) {
         int max = Integer.MIN_VALUE;
         int sMax = Integer.MIN_VALUE;
-        for(int val: arr) {
-            if(max < val) {
+        int min = Integer.MAX_VALUE;
+        int sMin = Integer.MAX_VALUE;
+        for(int element: a) {
+            if(element > max) {
                 sMax = max;
-                max = val;
+                max = element;
+            } else if(element > sMax && element < max) {
+                sMax = element;
             }
-            else if(max > val && sMax < val) {
-                sMax = val;
+            if(element < min) {
+                sMin = min;
+                min = element;
+            } else if(element < sMin && element > min) {
+                sMin = element;
             }
         }
-        if(sMax == Integer.MIN_VALUE) {
-            return -1;
-        }
-        return sMax;
+        return new int[]{sMax, sMin};
     }
 
 }
